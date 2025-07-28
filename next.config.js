@@ -1,12 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
+  trailingSlash: true,
   images: {
-    domains: ['localhost'],
-    formats: ['image/webp', 'image/avif'],
-  },
-  experimental: {
-    optimizeCss: true,
-  },
+    unoptimized: true
+  }
 }
 
 module.exports = nextConfig

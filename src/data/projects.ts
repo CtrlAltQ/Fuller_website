@@ -48,8 +48,8 @@ export const fullerProjects: Project[] = [
     serviceType: 'custom-carpentry',
     completedDate: '2024-08-15',
     images: {
-      featured: '/images/projects/GridArt_20250720_225708783.jpg',
-      after: ['/images/projects/GridArt_20250720_225708783.jpg'],
+      featured: '/images/projects/image000002.jpg',
+      after: ['/images/projects/image000002.jpg'],
       before: []
     },
     tags: []
@@ -61,8 +61,8 @@ export const fullerProjects: Project[] = [
     serviceType: 'windows-doors',
     completedDate: '2024-07-20',
     images: {
-      featured: '/images/projects/image000000.png',
-      after: ['/images/projects/image000000.png'],
+      featured: '/images/projects/image000003.jpg',
+      after: ['/images/projects/image000003.jpg'],
       before: []
     },
     tags: []
@@ -72,10 +72,10 @@ export const fullerProjects: Project[] = [
     title: 'Project 6',
     description: '',
     serviceType: 'home-renovation',
-    completedDate: '2024-06-25',
+    completedDate: '2024-06-18',
     images: {
-      featured: '/images/projects/image000002.jpg',
-      after: ['/images/projects/image000002.jpg'],
+      featured: '/images/projects/image000004.jpg',
+      after: ['/images/projects/image000004.jpg'],
       before: []
     },
     tags: []
@@ -85,10 +85,10 @@ export const fullerProjects: Project[] = [
     title: 'Project 7',
     description: '',
     serviceType: 'custom-carpentry',
-    completedDate: '2024-05-30',
+    completedDate: '2024-05-25',
     images: {
-      featured: '/images/projects/image000003.jpg',
-      after: ['/images/projects/image000003.jpg'],
+      featured: '/images/projects/image000005.jpg',
+      after: ['/images/projects/image000005.jpg'],
       before: []
     },
     tags: []
@@ -98,10 +98,10 @@ export const fullerProjects: Project[] = [
     title: 'Project 8',
     description: '',
     serviceType: 'decks-patios',
-    completedDate: '2024-04-18',
+    completedDate: '2024-04-12',
     images: {
-      featured: '/images/projects/image000004.jpg',
-      after: ['/images/projects/image000004.jpg'],
+      featured: '/images/projects/image000006.jpg',
+      after: ['/images/projects/image000006.jpg'],
       before: []
     },
     tags: []
@@ -111,10 +111,10 @@ export const fullerProjects: Project[] = [
     title: 'Project 9',
     description: '',
     serviceType: 'home-renovation',
-    completedDate: '2024-03-22',
+    completedDate: '2024-03-08',
     images: {
-      featured: '/images/projects/image000005.jpg',
-      after: ['/images/projects/image000005.jpg'],
+      featured: '/images/projects/image000007.jpg',
+      after: ['/images/projects/image000007.jpg'],
       before: []
     },
     tags: []
@@ -126,8 +126,8 @@ export const fullerProjects: Project[] = [
     serviceType: 'windows-doors',
     completedDate: '2024-02-14',
     images: {
-      featured: '/images/projects/image000006.jpg',
-      after: ['/images/projects/image000006.jpg'],
+      featured: '/images/projects/image000008.jpg',
+      after: ['/images/projects/image000008.jpg'],
       before: []
     },
     tags: []
@@ -137,10 +137,10 @@ export const fullerProjects: Project[] = [
     title: 'Project 11',
     description: '',
     serviceType: 'custom-carpentry',
-    completedDate: '2024-01-10',
+    completedDate: '2024-01-20',
     images: {
-      featured: '/images/projects/FB_IMG_1753069922220.jpg',
-      after: ['/images/projects/FB_IMG_1753069922220.jpg'],
+      featured: '/images/projects/image000009.jpg',
+      after: ['/images/projects/image000009.jpg'],
       before: []
     },
     tags: []
@@ -152,20 +152,18 @@ export const fullerProjects: Project[] = [
     serviceType: 'home-renovation',
     completedDate: '2023-12-15',
     images: {
-      featured: '/images/projects/FB_IMG_1753069994205.jpg',
-      after: ['/images/projects/FB_IMG_1753069994205.jpg'],
+      featured: '/images/projects/FB_IMG_1753069922220.jpg',
+      after: ['/images/projects/FB_IMG_1753069922220.jpg'],
       before: []
     },
     tags: []
   }
 ];
 
-// Featured projects for the hero slider
-export const featuredProjects = fullerProjects.filter(project => 
-  ['project-1', 'project-3', 'project-4', 'project-6', 'project-11'].includes(project.id)
-);
+// Featured projects for home page slider
+export const featuredProjects = fullerProjects.slice(0, 6);
 
-// Project categories for filtering
+// Project categories with counts
 export const projectCategories = [
   { id: 'all', name: 'All Projects', count: fullerProjects.length },
   { id: 'home-renovation', name: 'Home Renovations', count: fullerProjects.filter(p => p.serviceType === 'home-renovation').length },
