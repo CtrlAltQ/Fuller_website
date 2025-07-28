@@ -1,0 +1,329 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuller Restoration & Renovation</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">Fuller Restoration & Renovation</a>
+            <button class="hamburger" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Fuller Restoration & Renovation</h1>
+            <p>Bringing Homes Back to Life</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn primary">Book a Free Consultation</a>
+                <a href="#portfolio" class="btn secondary">View Our Work</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2>Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <span class="service-icon">🏠</span>
+                    <h3>Kitchen Remodels</h3>
+                    <p>Transform your kitchen with custom cabinetry, premium countertops, and modern appliances.</p>
+                </div>
+                <div class="service-card">
+                    <span class="service-icon">🚿</span>
+                    <h3>Bathroom Renovations</h3>
+                    <p>Create your dream bathroom with luxury fixtures, custom tile work, and elegant finishes.</p>
+                </div>
+                <div class="service-card">
+                    <span class="service-icon">🪵</span>
+                    <h3>Flooring</h3>
+                    <p>Quality hardwood, tile, and luxury vinyl flooring installation for any room in your home.</p>
+                </div>
+                <div class="service-card">
+                    <span class="service-icon">🏡</span>
+                    <h3>Decks & Patios</h3>
+                    <p>Extend your living space outdoors with custom-built decks and beautiful patio designs.</p>
+                </div>
+                <div class="service-card">
+                    <span class="service-icon">🔨</span>
+                    <h3>Full Home Renovations</h3>
+                    <p>Complete home transformations that modernize your space while preserving its character.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <h2>Our Work</h2>
+            <p class="portfolio-subtitle">See the transformations we've completed for our clients</p>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <div class="portfolio-images before-after-container">
+                        <div class="image-side before-side">
+                            <img loading="lazy" src="fullerpics/stairsbefore.jpg" alt="Staircase Before">
+                            <span class="image-label">Before</span>
+                        </div>
+                        <div class="image-side">
+                            <img loading="lazy" src="fullerpics/stairsafter.jpg" alt="Staircase After">
+                            <span class="image-label">After</span>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Staircase Renovation</h3>
+                        <p>Complete staircase transformation with refinished wood and modern railings.</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-images single-image-container">
+                        <img loading="lazy" src="fullerpics/Mantle.jpg" alt="Custom Mantle">
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Custom Mantle</h3>
+                        <p>Beautiful custom-built mantle adding character and warmth to the living space.</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-images single-image-container">
+                        <img loading="lazy" src="fullerpics/paintedwindow.jpg" alt="Custom Window Project">
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Custom Window Project</h3>
+                        <p>Beautiful custom window work showcasing our attention to detail and craftsmanship.</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-images single-image-container">
+                        <img loading="lazy" src="fullerpics/window.jpg" alt="Window Installation">
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Window Installation</h3>
+                        <p>Professional window installation and finishing work for enhanced home aesthetics.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <h2>Project Gallery</h2>
+            <p class="gallery-subtitle">Browse through our extensive collection of completed projects</p>
+            <div class="gallery-filters">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="kitchens">Kitchens</button>
+                <button class="filter-btn" data-filter="bathrooms">Bathrooms</button>
+                <button class="filter-btn" data-filter="flooring">Flooring</button>
+                <button class="filter-btn" data-filter="exterior">Exterior</button>
+                <button class="filter-btn" data-filter="custom">Custom Work</button>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item" data-category="exterior">
+                    <img loading="lazy" src="fullerpics/stairsbefore.jpg" alt="Exterior Stairs Before">
+                    <div class="gallery-overlay">
+                        <h4>Exterior Stairs - Before</h4>
+                        <p>Original condition</p>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="exterior">
+                    <img loading="lazy" src="fullerpics/stairsafter.jpg" alt="Exterior Stairs After">
+                    <div class="gallery-overlay">
+                        <h4>Exterior Stairs - After</h4>
+                        <p>Beautiful transformation</p>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="custom">
+                    <img loading="lazy" src="fullerpics/Mantle.jpg" alt="Custom Mantle">
+                    <div class="gallery-overlay">
+                        <h4>Custom Mantle</h4>
+                        <p>Handcrafted fireplace mantle</p>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="custom">
+                    <img loading="lazy" src="fullerpics/paintedwindow.jpg" alt="Window Project">
+                    <div class="gallery-overlay">
+                        <h4>Window Project</h4>
+                        <p>Custom window finishing</p>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="custom">
+                    <img loading="lazy" src="fullerpics/window.jpg" alt="Window Installation">
+                    <div class="gallery-overlay">
+                        <h4>Window Installation</h4>
+                        <p>Professional craftsmanship</p>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="custom">
+                    <img loading="lazy" src="fullerpics/paintedwindow2.jpg" alt="Window Restoration">
+                    <div class="gallery-overlay">
+                        <h4>Window Restoration</h4>
+                        <p>Restored to perfection</p>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-note">
+                <p>Want to see more? <a href="#contact">Contact us</a> to view our complete portfolio of finished projects!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <h2>About Fuller Restoration & Renovation</h2>
+                <p>Founded by Kodi and Kelly Fuller, our company was born from a passion for bringing homes back to life. With years of experience in the renovation industry, we've built a reputation for honest, high-quality craftsmanship in Columbia, Tennessee and surrounding areas.</p>
+                <p>We believe that every home has potential, and we're committed to helping homeowners transform their spaces into beautiful, functional environments that reflect their unique style and needs.</p>
+                <div class="about-features">
+                    <div class="feature">
+                        <span class="feature-title">Quality</span>
+                        <span class="feature-text">Craftsmanship</span>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-title">Honest</span>
+                        <span class="feature-text">Communication</span>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-title">On-Time</span>
+                        <span class="feature-text">Completion</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <div class="contact-item">
+                        <p><strong>Phone:</strong> <a href="tel:1234567890">(123) 456-7890</a></p>
+                    </div>
+                    <div class="contact-item">
+                        <p><strong>Email:</strong> <a href="mailto:info@fullerrenovation.com">info@fullerrenovation.com</a></p>
+                    </div>
+                    <div class="contact-item">
+                        <p><strong>Location:</strong> Columbia, TN</p>
+                    </div>
+                    <div class="contact-item">
+                        <p><strong>Service Area:</strong> Columbia, TN and surrounding areas</p>
+                    </div>
+                    <div class="contact-item">
+                        <p><strong>Hours:</strong><br>
+                        Monday - Friday: 8AM - 6PM<br>
+                        Saturday: 9AM - 4PM<br>
+                        Sunday: Closed</p>
+                    </div>
+                </div>
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3228.2947731590913!2d-87.03790468471776!3d35.61507118020838!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8868b3e6b9b9b7b7%3A0x7f8c0f0f0f0f0f0f!2sColumbia%2C%20TN!5e0!3m2!1sen!2sus!4v1634567890123!5m2!1sen!2sus" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" aria-label="Map of Columbia, TN"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Fuller Restoration & Renovation</h3>
+                    <p>Bringing homes back to life in Columbia, TN and surrounding areas.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#portfolio">Portfolio</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>Phone: <a href="tel:1234567890">(123) 456-7890</a></p>
+                    <p>Email: <a href="mailto:info@fullerrenovation.com">info@fullerrenovation.com</a></p>
+                    <p>Columbia, TN</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Fuller Restoration & Renovation. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" aria-label="Back to top">↑</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
