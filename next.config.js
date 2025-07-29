@@ -2,6 +2,8 @@
 const nextConfig = {
   output: 'export',
   trailingSlash: true,
+  basePath: process.env.NODE_ENV === 'production' ? '/Fuller_website' : '',
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/Fuller_website/' : '',
   images: {
     unoptimized: true
   }

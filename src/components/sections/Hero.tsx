@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { businessInfo } from '@/data/businessInfo'
 import ProjectSlider from '@/components/ui/ProjectSlider'
+import { getImagePath } from '@/utils/imagePaths'
 
 export default function Hero() {
   return (
@@ -12,7 +13,7 @@ export default function Hero() {
             {/* Fuller Logo */}
             <div className="mb-8">
               <Image
-                src="/images/logos/Fuller_Logo.jpg"
+                src={getImagePath("images/logos/Fuller_Logo.jpg")}
                 alt="Fuller Restoration and Renovation LLC Logo"
                 width={300}
                 height={300}

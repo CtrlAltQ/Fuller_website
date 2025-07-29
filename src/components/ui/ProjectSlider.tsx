@@ -4,11 +4,12 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { featuredProjects } from '@/data/projects'
+import { getImagePath } from '@/utils/imagePaths'
 
 // Transform featured projects for slider display
 const sliderProjects = featuredProjects.map(project => ({
   id: project.id,
-  src: project.images.featured,
+  src: getImagePath(project.images.featured),
   alt: project.title,
   title: project.title,
   category: project.tags[0]?.replace(/^\w/, c => c.toUpperCase()) || 'Home Improvement',

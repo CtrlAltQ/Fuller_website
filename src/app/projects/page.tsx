@@ -7,6 +7,7 @@ import Footer from '@/components/layout/Footer'
 import ImageModal from '@/components/ui/ImageModal'
 import { businessInfo, services } from '@/data/businessInfo'
 import { fullerProjects, projectCategories } from '@/data/projects'
+import { getImagePath } from '@/utils/imagePaths'
 
 export default function ProjectsPage() {
   const [selectedService, setSelectedService] = useState<string>('all')
@@ -114,10 +115,10 @@ export default function ProjectsPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredProjects.map(project => (
                 <div key={project.id} className="rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden group">
-                  <ImageModal src={project.images.featured} alt={project.title}>
+                  <ImageModal src={getImagePath(project.images.featured)} alt={project.title}>
                     <div className="relative overflow-hidden cursor-pointer">
                       <Image
-                        src={project.images.featured}
+                        src={getImagePath(project.images.featured)}
                         alt={project.title}
                         width={400}
                         height={300}
