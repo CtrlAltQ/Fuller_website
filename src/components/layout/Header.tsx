@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { businessInfo } from '@/data/businessInfo'
 import { formatPhoneForCall, formatPhoneForDisplay } from '@/utils/seo'
+import { getImagePath } from '@/utils/imagePaths'
 
 const navigation = [
   { name: 'Home', href: '/' },
@@ -22,7 +23,7 @@ export default function Header() {
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-3">
               <Image
-                src="/images/logos/Fuller logo.jpg"
+                src={getImagePath("images/logos/Fuller logo.jpg")}
                 alt="Fuller Restoration and Renovation LLC Logo"
                 width={50}
                 height={50}

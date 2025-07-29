@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { businessInfo, serviceAreas, services } from '@/data/businessInfo'
 import { formatPhoneForCall, formatPhoneForDisplay } from '@/utils/seo'
+import { getImagePath } from '@/utils/imagePaths'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -16,7 +17,7 @@ export default function Footer() {
             <div className="lg:col-span-1">
               <div className="flex items-center space-x-3 mb-6">
                 <Image
-                  src="/images/logos/Fuller_Logo.jpg"
+                  src={getImagePath("images/logos/Fuller_Logo.jpg")}
                   alt="Fuller Restoration and Renovation LLC Logo"
                   width={50}
                   height={50}
