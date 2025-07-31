@@ -14,6 +14,21 @@ export interface BusinessInfo {
   founded: string;
   description: string;
   specialties: string[];
+  socialMedia?: {
+    facebook?: string;
+    instagram?: string;
+    twitter?: string;
+    linkedin?: string;
+  };
+  businessHours?: {
+    monday: string;
+    tuesday: string;
+    wednesday: string;
+    thursday: string;
+    friday: string;
+    saturday: string;
+    sunday: string;
+  };
 }
 
 export interface ServiceArea {
@@ -45,7 +60,13 @@ export interface Project {
   title: string;
   description: string;
   serviceType: string; // Service ID
+  location: {
+    city: string;
+    county: string;
+    state: string;
+  };
   completedDate: string;
+  duration?: string;
   images: {
     before?: string[];
     during?: string[];
@@ -114,10 +135,38 @@ export interface LocalBusinessSchema {
     latitude: number;
     longitude: number;
   };
-  areaServed: string[];
+  areaServed: Array<{
+    '@type': string;
+    name: string;
+    containedInPlace: {
+      '@type': string;
+      name: string;
+    };
+  }> | string[];
   serviceType: string[];
   foundingDate: string;
   priceRange?: string;
   paymentAccepted?: string[];
   openingHours?: string[];
+  hasOfferCatalog?: {
+    '@type': string;
+    name: string;
+    itemListElement: Array<{
+      '@type': string;
+      itemOffered: {
+        '@type': string;
+        name: string;
+        description: string;
+        areaServed: string[];
+      };
+    }>;
+  };
+  aggregateRating?: {
+    '@type': string;
+    ratingValue: string;
+    reviewCount: string;
+    bestRating: string;
+    worstRating: string;
+  };
+  sameAs?: string[];
 }

@@ -9,7 +9,10 @@ import { getImagePath } from '@/utils/imagePaths'
 
 const navigation = [
   { name: 'Home', href: '/' },
-  { name: 'Projects', href: '/projects' }
+  { name: 'About', href: '/about' },
+  { name: 'Services', href: '/services' },
+  { name: 'Projects', href: '/projects' },
+  { name: 'Contact', href: '/contact' }
 ]
 
 export default function Header() {
@@ -55,10 +58,59 @@ export default function Header() {
 
           {/* Contact Info & CTA */}
           <div className="flex items-center space-x-4">
-            {/* Phone Number - Always Visible */}
+            {/* Contact Information - Enhanced Prominence */}
+            <div className="hidden xl:flex items-center space-x-6">
+              {/* Phone Number - Enhanced Prominence */}
+              <a
+                href={`tel:${formatPhoneForCall(businessInfo.phone)}`}
+                className="flex items-center space-x-2 text-primary-400 hover:text-primary-300 transition-colors duration-200 bg-neutral-800 px-3 py-2 rounded-lg border border-neutral-700"
+                title="Call Fuller Restoration for immediate assistance"
+              >
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                  />
+                </svg>
+                <span className="font-semibold">
+                  {formatPhoneForDisplay(businessInfo.phone)}
+                </span>
+              </a>
+
+              {/* Email */}
+              <a
+                href={`mailto:${businessInfo.email}`}
+                className="flex items-center space-x-2 text-neutral-300 hover:text-primary-400 transition-colors duration-200"
+                title="Email Fuller Restoration"
+              >
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  />
+                </svg>
+                <span className="text-sm font-medium">Email Us</span>
+              </a>
+            </div>
+
+            {/* Phone Number - Visible on Medium Screens */}
             <a
               href={`tel:${formatPhoneForCall(businessInfo.phone)}`}
-              className="flex items-center space-x-2 text-primary-400 hover:text-primary-300 transition-colors duration-200"
+              className="xl:hidden flex items-center space-x-2 text-primary-400 hover:text-primary-300 transition-colors duration-200"
             >
               <svg
                 className="w-5 h-5"
@@ -79,30 +131,20 @@ export default function Header() {
             </a>
 
             {/* Contact Us Button - Hidden on Mobile */}
-            <button
-              onClick={() => {
-                // If on home page, scroll to contact form
-                if (window.location.pathname === '/') {
-                  const contactForm = document.querySelector('#contact-form');
-                  if (contactForm) {
-                    contactForm.scrollIntoView({ behavior: 'smooth' });
-                  }
-                } else {
-                  // If on other pages, go to home page with contact form anchor
-                  window.location.href = '/#contact-form';
-                }
-              }}
+            <Link
+              href="/contact"
               className="hidden md:inline-flex btn-primary"
             >
-              Contact Us
-            </button>
+              Get Free Estimate
+            </Link>
 
             {/* Mobile Menu Button */}
             <button
               type="button"
               className="lg:hidden p-2 rounded-md text-white hover:text-primary-400 hover:bg-neutral-800 transition-colors duration-200"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-expanded="false"
+              aria-expanded={mobileMenuOpen}
+              aria-label="Toggle navigation menu"
             >
               <span className="sr-only">Open main menu</span>
               {mobileMenuOpen ? (
@@ -139,9 +181,12 @@ export default function Header() {
         </div>
 
         {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-neutral-800 py-4">
-            <div className="flex flex-col space-y-4">
+        <div className={`lg:hidden border-t border-neutral-800 transition-all duration-300 ease-in-out ${
+          mobileMenuOpen 
+            ? 'max-h-screen opacity-100 py-4' 
+            : 'max-h-0 opacity-0 py-0 overflow-hidden'
+        }`}>
+          <div className="flex flex-col space-y-4">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
@@ -158,29 +203,37 @@ export default function Header() {
                 <a
                   href={`tel:${formatPhoneForCall(businessInfo.phone)}`}
                   className="btn-call text-center"
+                  onClick={() => setMobileMenuOpen(false)}
                 >
                   Call {formatPhoneForDisplay(businessInfo.phone)}
                 </a>
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    // If on home page, scroll to contact form
-                    if (window.location.pathname === '/') {
-                      setTimeout(() => {
-                        const contactForm = document.querySelector('#contact-form');
-                        if (contactForm) {
-                          contactForm.scrollIntoView({ behavior: 'smooth' });
-                        }
-                      }, 100);
-                    } else {
-                      // If on other pages, go to home page with contact form anchor
-                      window.location.href = '/#contact-form';
-                    }
-                  }}
+                <Link
+                  href="/contact"
                   className="btn-primary text-center"
+                  onClick={() => setMobileMenuOpen(false)}
                 >
-                  Contact Us
-                </button>
+                  Get Free Estimate
+                </Link>
+                <a
+                  href={`mailto:${businessInfo.email}`}
+                  className="flex items-center justify-center space-x-2 text-primary-400 hover:text-primary-300 transition-colors duration-200 py-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
+                  </svg>
+                  <span className="font-medium">Email Us</span>
+                </a>
               </div>
 
               {/* Location Info */}
@@ -200,7 +253,6 @@ export default function Header() {
               </div>
             </div>
           </div>
-        )}
       </div>
     </header>
   )

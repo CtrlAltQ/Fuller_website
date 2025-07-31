@@ -30,8 +30,8 @@ export default function Footer() {
               </div>
               
               <p className="text-neutral-300 mb-6 leading-relaxed">
-                Family-owned home renovation and custom carpentry business serving 
-                Columbia, TN and Middle Tennessee with quality craftsmanship since 2025.
+                Family-owned home renovation and custom carpentry business with 15+ years 
+                of experience serving Columbia, TN and Middle Tennessee with quality craftsmanship.
               </p>
 
               {/* Contact Info */}
@@ -67,6 +67,29 @@ export default function Footer() {
                   </div>
                 </div>
               </div>
+
+              {/* Social Media Links */}
+              {businessInfo.socialMedia?.facebook && (
+                <div className="mt-6">
+                  <h5 className="text-sm font-semibold text-wood-200 mb-3">Follow Us</h5>
+                  <div className="flex space-x-3">
+                    <a
+                      href={businessInfo.socialMedia.facebook}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center w-10 h-10 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors duration-200"
+                      aria-label="Follow Fuller Restoration on Facebook"
+                    >
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                      </svg>
+                    </a>
+                  </div>
+                  <p className="text-xs text-neutral-400 mt-2">
+                    See our latest projects and updates
+                  </p>
+                </div>
+              )}
             </div>
 
             {/* Services */}
@@ -134,26 +157,44 @@ export default function Footer() {
               </ul>
 
               {/* Business Hours */}
-              <div className="bg-neutral-800 rounded-lg p-4">
-                <h5 className="text-sm font-semibold text-wood-200 mb-3">Business Hours</h5>
-                <div className="space-y-1 text-xs text-neutral-300">
-                  <div className="flex justify-between">
-                    <span>Monday - Friday:</span>
-                    <span>8:00 AM - 5:00 PM</span>
+              {businessInfo.businessHours && (
+                <div className="bg-neutral-800 rounded-lg p-4">
+                  <h5 className="text-sm font-semibold text-wood-200 mb-3">Business Hours</h5>
+                  <div className="space-y-1 text-xs text-neutral-300">
+                    <div className="flex justify-between">
+                      <span>Monday:</span>
+                      <span>{businessInfo.businessHours.monday}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Tuesday:</span>
+                      <span>{businessInfo.businessHours.tuesday}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Wednesday:</span>
+                      <span>{businessInfo.businessHours.wednesday}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Thursday:</span>
+                      <span>{businessInfo.businessHours.thursday}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Friday:</span>
+                      <span>{businessInfo.businessHours.friday}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Saturday:</span>
+                      <span>{businessInfo.businessHours.saturday}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Sunday:</span>
+                      <span>{businessInfo.businessHours.sunday}</span>
+                    </div>
                   </div>
-                  <div className="flex justify-between">
-                    <span>Saturday:</span>
-                    <span>9:00 AM - 3:00 PM</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Sunday:</span>
-                    <span>Closed</span>
-                  </div>
+                  <p className="text-xs text-neutral-400 mt-2">
+                    Emergency services available
+                  </p>
                 </div>
-                <p className="text-xs text-neutral-400 mt-2">
-                  Emergency services available
-                </p>
-              </div>
+              )}
             </div>
           </div>
         </div>
@@ -161,7 +202,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-neutral-800 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            {/* Copyright */}
+            {/* Copyright and Legal */}
             <div className="text-center md:text-left">
               <p className="text-sm text-neutral-400">
                 © {currentYear} {businessInfo.name}. All rights reserved.
@@ -169,10 +210,29 @@ export default function Footer() {
               <p className="text-xs text-neutral-500 mt-1">
                 Licensed contractor serving Columbia, TN and Middle Tennessee
               </p>
+              <p className="text-xs text-neutral-500 mt-1">
+                Fully insured • Bonded • 15+ years experience
+              </p>
             </div>
 
-            {/* Local SEO Keywords */}
+            {/* Social Media and Local SEO */}
             <div className="text-center md:text-right">
+              {businessInfo.socialMedia?.facebook && (
+                <div className="flex justify-center md:justify-end items-center space-x-4 mb-2">
+                  <a
+                    href={businessInfo.socialMedia.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-neutral-400 hover:text-blue-400 transition-colors duration-200"
+                    aria-label="Visit our Facebook page"
+                  >
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                  </a>
+                  <span className="text-neutral-500 text-xs">Follow us for updates</span>
+                </div>
+              )}
               <p className="text-xs text-neutral-500">
                 Columbia TN Contractor | Tennessee Home Renovation | Custom Carpentry Middle Tennessee
               </p>

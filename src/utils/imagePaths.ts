@@ -6,7 +6,14 @@ export function getImagePath(path: string): string {
   // Remove leading slash if present
   const cleanPath = path.startsWith('/') ? path.slice(1) : path;
   
-  // In production build, add GitHub Pages prefix
-  // The basePath from next.config.js doesn't affect public folder images
-  return `/Fuller_website/${cleanPath}`;
+  // Check if we're in development mode
+  const isDevelopment = process.env.NODE_ENV === 'development';
+  
+  if (isDevelopment) {
+    // In development, serve from root
+    return `/${cleanPath}`;
+  } else {
+    // In production build, add GitHub Pages prefix
+    return `/Fuller_website/${cleanPath}`;
+  }
 }
